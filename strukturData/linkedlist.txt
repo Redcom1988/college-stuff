@@ -1,0 +1,48 @@
+simpulku *new, *temp2, *temp = head;
+while (temp -> next != NULL) {
+	if (temp -> nilai == 50) {
+	temp2 = temp -> next
+	temp -> next = new
+	new -> next = temp2
+	break
+	}
+temp = temp -> next
+}
+
+////////////////////////////////////////////////////
+
+simpulku *temp = list1
+while (temp -> next != NULL) {
+	temp = temp -> next
+}
+temp -> next = list2
+
+////////////////////////////////////////////////////
+
+simpulku *temp = head, *new;
+while (temp -> next != head) {
+	temp = temp -> next
+} // cek tail
+temp -> next = new
+new -> next = head
+head = new
+
+////////////////////////////////////////////////////
+
+simpulku *temp = head;
+while (temp -> next != head) {
+	temp = temp -> next
+}
+temp -> next = head -> next
+free(head)
+head = temp -> next
+
+////////////////////////////////////////////////////
+
+intel 4000 m
+intel uhd graphics
+4gb ram
+
+intel core i5 7565U
+nvidia mx 150
+8 gb ram
