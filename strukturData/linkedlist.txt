@@ -39,10 +39,40 @@ head = temp -> next
 
 ////////////////////////////////////////////////////
 
-intel 4000 m
-intel uhd graphics
-4gb ram
+simpulku *new, *tail
+tail = head -> prev
 
-intel core i5 7565U
-nvidia mx 150
-8 gb ram
+new -> next = head
+head -> prev = new
+
+tail -> next = new
+new -> prev = tail
+
+head = new
+
+
+or replace tail with head -> prev
+
+
+simpulku *new
+
+new -> next = head
+head -> prev = new
+
+head -> prev -> next = new
+new -> prev = head -> prev
+
+head = new
+
+///////////////////////////////////////////////////
+
+simpulku *temp = head
+head = head -> next
+
+temp -> prev -> next = head
+head -> prev = temp -> prev
+
+free(temp)
+
+///////////////////////////////////////////////////
+
