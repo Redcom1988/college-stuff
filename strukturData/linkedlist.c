@@ -2,123 +2,78 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct Node {
+typedef struct {
     char name[100];
     char nim[10];
     int ukt;
     int nominal;
-    struct Node *next;
-} Node;
+    struct lldata *next;
+} lldata;
 
-Node* createNode(char name[], char nim[], int ukt, int nominal) {
-    Node *newNode = (Node*)malloc(sizeof(Node));
-    if (newNode == NULL) {
-        printf("Memory allocation failed\n");
-        exit(1);
-    }
-    strcpy(newNode->name, name);
-    strcpy(newNode->nim, nim);
-    newNode->ukt = ukt;
-    newNode->nominal = nominal;
-    newNode->next = NULL;
-    return newNode;
-}
+// int fillStatus(lldata *head) {
+//     if (head == NULL) {
+//         return 0;
+//     } else if (head != NULL) {
+//         return 1;
+//     }
+// }
 
-void enqueue(Node **head, Node **tail, char name[], char nim[], int ukt, int nominal) {
-    Node *newNode = createNode(name, nim, ukt, nominal);
-    if (*tail == NULL) {
-        *head = *tail = newNode;
-    } else {
-        (*tail)->next = newNode;
-        *tail = newNode;
-    }
-}
+void enqueueData(lldata *head, lldata *tail, lldata *new) {
+    new = (lldata *)malloc(sizeof(lldata));
+    getchar();
+    printf("\nNama : ");
+    fgets((new)->name, sizeof((new)->name), stdin);
+    strtok((new)->name, "\n");
+    printf("NIM : ");
+    fgets((new)->nim, sizeof((new)->nim), stdin);
+    strtok((new)->nim, "\n");
+    printf("UKT : ");
+    scanf("%d", &(new)->ukt);
+    printf("Nominal : ");
+    scanf("%d", &(new)->nominal);
+    (new)->next = NULL;
 
-void dequeue(Node **head, Node **tail) {
-    if (*head == NULL) {
-        printf("Queue is empty. Cannot remove data.\n");
-    } else {
-        Node *temp = *head;
-        *head = (*head)->next;
-        if (*head == NULL) {
-            *tail = NULL;
-        }
-        free(temp);
-    }
-}
-
-void printQueue(Node *head) {
     if (head == NULL) {
-        printf("Queue is empty.\n");
+        head = new;
+        tail = new;
     } else {
-        printf("Queue:\n");
-        int count = 1;
-        while (head != NULL) {
-            printf("%d. Name: %s, NIM: %s, UKT: %d, Nominal: %d\n", count++, head->name, head->nim, head->ukt, head->nominal);
-            head = head->next;
+        (tail)->next = new;
+        tail = new;
+    }
+}
+
+void showData(lldata *head) {
+    lldata *current = head;
+    if (current == NULL) {
+        printf("Antrian kosong\n");
+    } else {
+        while (current != NULL) {
+            printf("| %-40s | %-10s | %3s | %-16s | \n\n", "Nama", "NIM", "UKT", "Nominal");
+            printf("| %-40s | %-10s | %3d | Rp. %-12d | \n", current->name, current->nim, current->ukt, current->nominal);
+            current = current->next;
         }
     }
 }
 
 int main() {
-    Node *head = NULL;
-    Node *tail = NULL;
+    printf("Program Antrian Pembayaran UKT\n");
+    int pilihan;
+    lldata *head = NULL, *tail = NULL, *new = NULL;
 
-    int choice;
     do {
-        printf("\nMenu\n");
-        printf("1. Add Data\n");
-        printf("2. Remove Data\n");
-        printf("3. Print Queue\n");
-        printf("4. Exit\n");
-        printf("Choice: ");
-        scanf("%d", &choice);
-
-        switch(choice) {
-            case 1: {
-                char name[100];
-                char nim[10];
-                int ukt, nominal;
-                printf("\nInput Data Mahasiswa\n");
-                printf("Nama : ");
-                getchar();
-                fgets(name, sizeof(name), stdin);
-                strtok(name, "\n");
-                printf("NIM : ");
-                fgets(nim, sizeof(nim), stdin);
-                strtok(nim, "\n");
-                printf("UKT : ");
-                scanf("%d", &ukt);
-                printf("Nominal : ");
-                scanf("%d", &nominal);
-                enqueue(&head, &tail, name, nim, ukt, nominal);
+        printf("\nMenu : \n1. Tambah Antrian\n2. Lihat Antrian\n3. Keluar\n");
+        printf("Pilihan : ");
+        scanf("%d", &pilihan);
+        switch (pilihan) {
+            case 1:
+                enqueueData(head, tail, new);
                 break;
-            }
             case 2:
-                printf("\nData Mahasiswa\n");
-                printf("Nama : %s\n", Node[head].name);
-                printf("NIM : %s\n", Node[head].nim);
-                printf("UKT : %d\n", Node[head].ukt);
-                printf("Nominal : %d\n", Node[head].nominal);
-                dequeue(&head, &tail);
+                showData(head);
                 break;
             case 3:
-                printQueue(head);
+                exit(0);
                 break;
-            case 4:
-                printf("Exiting...\n");
-                break;
-            default:
-                printf("Invalid choice!\n");
         }
-    } while (choice != 0);
-
-    // Free memory before exiting
-    while (head != NULL) {
-        Node *temp = head;
-        head = head->next;
-        free(temp);
-    }
-
-    return 0;
+    } while (1);
 }
