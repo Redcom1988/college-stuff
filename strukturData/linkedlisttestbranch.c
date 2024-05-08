@@ -40,6 +40,13 @@ lldata* freeIterate(lldata *head, lldata *current) {
     }
 }
 
+lldata* freeCheck(lldata *head, lldata *tail) {
+    if (countData(head) == 1) {
+        free(head);
+        return NULL;
+    }
+}
+
 void showLatest(lldata *head) {
     printf("\nData Pembayaran\n");
     printf("Nama : %s\n", head->name);
@@ -149,6 +156,12 @@ int main() {
                     printf("\nTerimakasih\n");
                     exit(0);
                 }
+                break;
+            case 5:
+                printf("\nTotal data: %d\n", countData(head));
+                break;
+            case 6:
+                head = freeCheck(head, tail);
                 break;
         }
     } while (1);
