@@ -1,0 +1,48 @@
+bool visited[v] = {false}
+int stack[7]
+int top = -1
+
+visited[0] = true
+stack[++top] = 0
+
+while (top != -1)
+	int current = stack[top--]
+	for (int i = 0; i < row; i++)
+		if (a[current][i] && !visited[i])
+			visited[i] = true
+			stack[++top] = i
+
+for (int i = 0; i < row; i++)
+	if (!visited[i])
+		printf("done")
+
+
+int temp = 0
+for (int i = 0; i < row; i++)
+	for (int j = i + 1; j < row; j++)
+		if (a[i][1] < d[j][1])
+			temp = d[i][1]
+			d[i][1] = d[j][1]
+			d[j][1] = temp
+			temp = d[i][0]
+			d[i][0] = d[j][0]
+			d[j][0] = temp 
+
+
+int color = 1
+w[d[0][0]] = color
+int total = 1
+for (int i = 1; i < row; i++)
+	T[i] = a[d[i][0]][0]
+
+while (total < row)
+	for (int i = 1; i < row; i++)
+		if (w[d[i][0]] == 0 && T[d[i][0]] == 0)
+			w[d[i][0]] = warna
+			total++
+			for (int j = 1; j < row; j++)
+				if (T[j] == 0)
+					T[j] = T[j] + a[d[i][0]][j]
+	warna++
+	for (int i = 1; i < row; i++)
+		T[j] = 0

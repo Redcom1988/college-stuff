@@ -76,3 +76,18 @@ free(temp)
 
 ///////////////////////////////////////////////////
 
+simpulku *temp2, *temp = head;
+if (head != NULL && head -> nim == 170153) {
+	head = temp -> next
+	free(temp)
+} else {
+	while (temp -> next != NULL) {
+		if (temp -> next -> nim == 170153) {
+		temp2 = temp -> next
+		temp -> next = temp2 -> next
+		free(temp2)
+		break
+		}
+	temp = temp -> next
+	}
+}
